@@ -1,0 +1,51 @@
+Build a full-stack solution for a web-based cryptocurrency payroll and invoicing platform designed for a Solana hackathon. The project must include both a Node.js backend and a Solana on-chain program written in Rust using Anchor. The solution should integrate the following requirements:
+Project Overview:
+- Purpose: A user-friendly app for businesses and freelancers that simplifies payroll, invoicing, and cryptocurrency payments.
+- Core Features:
+- Generate and customize invoices with both fiat and cryptocurrency options.
+- Process direct payments in multiple cryptocurrencies using payment requests.
+- Convert between fiat and cryptocurrency (on-ramp/off-ramp capabilities).
+- Provide a comprehensive dashboard for tracking invoices and the status of payments.
+Design & Visual References:
+- Inspiration: Interfaces like Stripe Dashboard and Coinbase Commerce with professional financial aesthetics and clear transaction flows.
+- Style Guide:
+- Colors:
+- Primary: #0052FF (crypto blue)
+- Secondary: #05B169 (success green)
+- Warning: #FFA726 (alert orange)
+- Background: #F7F9FC (light grey)
+- Text: #1E2026 (dark grey)
+- Typography & Layout:
+- Fonts: Inter/Roboto
+- Clean dashboard layout with data cards
+- 24px spacing and a clear typography hierarchy
+- Fully responsive design optimized for both desktop and mobile views
+Backend (Node.js/Express):
+- Implement API endpoints to handle:
+- Invoice creation (with customizable fields for invoice details, including support for fiat and crypto).
+- Payment processing endpoints for both crypto and fiat.
+- Dashboard endpoint to return invoice and payment data.
+- Optionally integrate a simple in-memory storage or database to hold invoice/payment information.
+- Ensure the backend is designed to later integrate with the Solana on-chain program (e.g., by building and sending transactions to the Solana network).
+Solana On-Chain Program (Rust/Anchor):
+- Develop a smart contract using Anchor that includes:
+- An instruction to create an invoice. The invoice account should contain:
+- Creator’s public key.
+- Amount (as a u64).
+- A description (with a fixed byte limit).
+- Invoice status (initially “Pending”).
+- An instruction to process a payment. This should:
+- Validate that the invoice is still pending.
+- Check that the payment meets or exceeds the invoice amount.
+- Update the invoice status to “Paid”.
+- Define appropriate account structures, error management, and validations.
+Additional Considerations:
+- The system should seamlessly handle international payments by integrating on-ramping/off-ramping for fiat-to-crypto conversions.
+- Consider monetization options like transaction fees and premium subscription tiers.
+- Structure the project so that the frontend (inspired by the stated design guidelines) can easily interact with the developed backend and on-chain program.
+Deliverables:
+- The fully functional Node.js backend code (using Express) with the required endpoints.
+- The complete Solana smart contract code in Rust (using Anchor) that handles invoice creation and payment processing.
+- Clear instructions or code comments that explain integration points between the backend and the Solana on-chain program.
+
+This prompt outlines the entire full-stack solution, combining the Node.js backend and the Rust (Anchor) Solana program, ideal for demonstrating at a Solana hackathon.
