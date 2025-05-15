@@ -152,7 +152,9 @@ export default function CreateInvoice() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      clientId: '',
       invoiceNumber: `INV-${Math.floor(Math.random() * 10000).toString().padStart(4, '0')}`,
+      amount: '',
       status: "PENDING",
       paymentMethod: "CRYPTO",
       template: "default",
