@@ -1,0 +1,42 @@
+chunk-276SZO74.js?v=535d8308:521 Warning: A component is changing an uncontrolled input to be controlled. This is likely caused by the value changing from undefined to a defined value, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. More info: https://reactjs.org/link/controlled-components
+    at input
+    at _c (https://9606a699-62da-4a84-a10b-984f3b2fc8de-00-2w1fnnpxxg8t6.pike.replit.dev/src/components/ui/input.tsx:20:11)
+    at https://9606a699-62da-4a84-a10b-984f3b2fc8de-00-2w1fnnpxxg8t6.pike.replit.d…unner/workspace/node_modules/.vite/deps/chunk-GR3B7I3S.js?v=535d8308:79:13
+    at https://9606a699-62da-4a84-a10b-984f3b2fc8de-00-2w1fnnpxxg8t6.pike.replit.d…unner/workspace/node_modules/.vite/deps/chunk-GR3B7I3S.js?v=535d8308:56:13
+    at https://9606a699-62da-4a84-a10b-984f3b2fc8de-00-2w1fnnpxxg8t6.pike.replit.dev/src/components/ui/form.tsx:130:9
+    at div
+    at https://9606a699-62da-4a84-a10b-984f3b2fc8de-00-2w1fnnpxxg8t6.pike.replit.dev/src/components/ui/form.tsx:72:6
+    at Controller (https://9606a699-62da-4a84-a10b-984f3b2fc8de-00-2w1fnnpxxg8t6.pike.replit.d…nner/workspace/node_modules/.vite/deps/chunk-YGCRICWC.js?v=535d8308:298:35)
+    at FormField (https://9606a699-62da-4a84-a10b-984f3b2fc8de-00-2w1fnnpxxg8t6.pike.replit.dev/src/components/ui/form.tsx:33:6)
+    at div
+    at form
+    at FormProvider (https://9606a699-62da-4a84-a10b-984f3b2fc8de-00-2w1fnnpxxg8t6.pike.replit.d…nner/workspace/node_modules/.vite/deps/chunk-YGCRICWC.js?v=535d8308:102:11)
+    at div
+    at _c9 (https://9606a699-62da-4a84-a10b-984f3b2fc8de-00-2w1fnnpxxg8t6.pike.replit.dev/src/components/ui/card.tsx:114:12)
+    at div
+    at _c (https://9606a699-62da-4a84-a10b-984f3b2fc8de-00-2w1fnnpxxg8t6.pike.replit.dev/src/components/ui/card.tsx:20:11)
+    at DataCard (https://9606a699-62da-4a84-a10b-984f3b2fc8de-00-2w1fnnpxxg8t6.pike.replit.dev/src/components/ui/data-card.tsx:20:3)
+    at div
+    at CreateInvoice (https://9606a699-62da-4a84-a10b-984f3b2fc8de-00-2w1fnnpxxg8t6.pike.replit.dev/src/pages/invoices/create.tsx:90:3)
+    at Route (https://9606a699-62da-4a84-a10b-984f3b2fc8de-00-2w1fnnpxxg8t6.pike.replit.d…/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=5e098504:265:16)
+    at Switch (https://9606a699-62da-4a84-a10b-984f3b2fc8de-00-2w1fnnpxxg8t6.pike.replit.d…/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=5e098504:321:17)
+    at Router
+    at main
+    at div
+    at div
+    at AppLayout (https://9606a699-62da-4a84-a10b-984f3b2fc8de-00-2w1fnnpxxg8t6.pike.replit.dev/src/components/layout/app-layout.tsx:21:37)
+    at Provider (https://9606a699-62da-4a84-a10b-984f3b2fc8de-00-2w1fnnpxxg8t6.pike.replit.d…unner/workspace/node_modules/.vite/deps/chunk-3RXG37ZK.js?v=535d8308:38:15)
+    at TooltipProvider (https://9606a699-62da-4a84-a10b-984f3b2fc8de-00-2w1fnnpxxg8t6.pike.replit.d…rkspace/node_modules/.vite/deps/@radix-ui_react-tooltip.js?v=874dc7da:61:5)
+    at V (https://9606a699-62da-4a84-a10b-984f3b2fc8de-00-2w1fnnpxxg8t6.pike.replit.d…e/runner/workspace/node_modules/.vite/deps/next-themes.js?v=9300ac05:44:25)
+    at J (https://9606a699-62da-4a84-a10b-984f3b2fc8de-00-2w1fnnpxxg8t6.pike.replit.d…e/runner/workspace/node_modules/.vite/deps/next-themes.js?v=9300ac05:42:18)
+    at QueryClientProvider (https://9606a699-62da-4a84-a10b-984f3b2fc8de-00-2w1fnnpxxg8t6.pike.replit.d…rkspace/node_modules/.vite/deps/@tanstack_react-query.js?v=2dff927b:2805:3)
+    at App
+    at Provider (https://9606a699-62da-4a84-a10b-984f3b2fc8de-00-2w1fnnpxxg8t6.pike.replit.d…/runner/workspace/node_modules/.vite/deps/react-redux.js?v=52727fd4:923:11)
+
+/api/invoices:1 
+ Failed to load resource: the server responded with a status of 400 (Bad Request)
+create.tsx:147 Failed to create invoice: 
+Error: 400: {"errors":[{"code":"invalid_type","expected":"date","received":"string","path":["dueDate"],"message":"Expected date, received string"}]}
+    at throwIfResNotOk (queryClient.ts:6:11)
+    at async apiRequest (queryClient.ts:22:3)
+    at async Object.mutationFn (create.tsx:113:24)
