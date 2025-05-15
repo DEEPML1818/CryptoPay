@@ -143,8 +143,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (!invoice) {
         return res.status(404).json({ message: "Invoice not found" });
       }
+
+      // If payment is being processed
+      if (req.body.status === "PAID") {
+        const payment = await storage.createPayment({
+          userId: invoice.userId,
+          invoiceId: invoice.id,
+          amount: invoice.amount,
+          status: "COMPLETED",
+          paymentMethod: invoice.paymentMethod,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        });
+      }
       
-      const updatedInvoice = await storage.updateInvoice(invoiceId, req.body);
+      const updatedInvoice = await storage.updateInvoice(invoiceId, {
+        ...req.body,
+        paidAt: req.body.status === "PAID" ? new Date() : null
+      });
       res.json(updatedInvoice);
     } catch (error) {
       if (error instanceof z.ZodError) {

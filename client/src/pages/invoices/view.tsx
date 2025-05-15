@@ -137,6 +137,28 @@ export default function ViewInvoice({ id }: ViewInvoiceProps) {
     window.print();
   };
 
+  // Handle download
+  const handleDownload = () => {
+    downloadInvoice(invoiceData, invoiceData.client);
+  };
+
+  // Handle send reminder
+  const handleSendReminder = async () => {
+    try {
+      await apiRequest("POST", `/api/invoices/${invoiceId}/remind`, {});
+      toast({
+        title: "Success",
+        description: "Payment reminder sent successfully"
+      });
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to send reminder"
+      });
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-[60vh]">
