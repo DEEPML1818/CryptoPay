@@ -110,7 +110,7 @@ export default function CreateInvoice() {
         { description: "Service", quantity: 1, rate: parseFloat(data.amount), amount: parseFloat(data.amount) }
       ]);
 
-      const response = await apiRequest(
+      return await apiRequest(
         "POST",
         "/api/invoices",
         {
@@ -120,15 +120,13 @@ export default function CreateInvoice() {
           cryptoAmount,
           cryptoType: data.paymentMethod === "CRYPTO" ? data.cryptoType : null,
           status: data.status,
-          dueDate: data.dueDate,
+          dueDate: data.dueDate.toISOString(),
           paymentMethod: data.paymentMethod,
           items,
           notes: data.notes,
           template: data.template,
         }
       );
-
-      return response.json();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/invoices"] });
