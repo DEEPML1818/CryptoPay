@@ -120,7 +120,7 @@ export default function CreateInvoice() {
           cryptoAmount,
           cryptoType: data.paymentMethod === "CRYPTO" ? data.cryptoType : null,
           status: data.status,
-          dueDate: new Date(data.dueDate),
+          dueDate: data.dueDate,
           paymentMethod: data.paymentMethod,
           items,
           notes: data.notes,
