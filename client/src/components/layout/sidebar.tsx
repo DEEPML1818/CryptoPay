@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { useQuery } from "@tanstack/react-query";
-import { LayoutDashboard, FileText, DollarSign, Wallet, Users, Settings } from "lucide-react";
+import { LayoutDashboard, FileText, DollarSign, Wallet, Users, Settings, Building, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { navigateTo } from "@/lib/navigation";
 
@@ -59,9 +59,39 @@ export default function Sidebar() {
             <span className="text-primary font-bold text-xl">CryptoPay</span>
           </div>
         </div>
-        
+
         <nav className="flex-1 overflow-y-auto py-4">
           <ul>
+            {/* Client and Freelancer Portal Links - Inserted here */}
+            <li key="client-portal" className="mb-1 px-2">
+              <div
+                onClick={() => navigateTo("/client-dashboard")}
+                className={cn(
+                  "sidebar-link flex items-center px-4 py-3 text-sm rounded-lg cursor-pointer",
+                  location === "/client-dashboard"
+                    ? "active"
+                    : "text-foreground hover:bg-background dark:hover:bg-sidebar-accent"
+                )}
+              >
+                <Building className="mr-3 h-5 w-5" />
+                Client Portal
+              </div>
+            </li>
+            <li key="freelancer-portal" className="mb-1 px-2">
+              <div
+                onClick={() => navigateTo("/freelancer-dashboard")}
+                className={cn(
+                  "sidebar-link flex items-center px-4 py-3 text-sm rounded-lg cursor-pointer",
+                  location === "/freelancer-dashboard"
+                    ? "active"
+                    : "text-foreground hover:bg-background dark:hover:bg-sidebar-accent"
+                )}
+              >
+                <User className="mr-3 h-5 w-5" />
+                Freelancer Portal
+              </div>
+            </li>
+            {/* End of Inserted Links */}
             {navLinks.map((link) => (
               <li key={link.href} className="mb-1 px-2">
                 <div 
@@ -79,7 +109,7 @@ export default function Sidebar() {
             ))}
           </ul>
         </nav>
-        
+
         <div className="p-4 border-t border-border">
           <div className="bg-background dark:bg-sidebar-accent rounded-xl p-4">
             <p className="text-xs font-medium text-muted-foreground mb-2">Current Balance</p>
@@ -96,7 +126,7 @@ export default function Sidebar() {
             </div>
           </div>
         </div>
-        
+
         {userData && (
           <div className="p-4 border-t border-border">
             <div className="flex items-center">
@@ -113,7 +143,7 @@ export default function Sidebar() {
           </div>
         )}
       </div>
-      
+
       {/* Mobile toggle button - returned for use in header */}
       <button
         onClick={() => setIsOpen(!isOpen)}

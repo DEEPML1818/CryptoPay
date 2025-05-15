@@ -25,6 +25,10 @@ export const navigateTo = (path: string, options: { replace?: boolean } = {}): v
  */
 export const routes = {
   home: () => '/',
+  portals: {
+    client: () => '/client-dashboard',
+    freelancer: () => '/freelancer-dashboard'
+  },
   invoices: {
     list: () => '/invoices',
     create: () => '/invoices/create',

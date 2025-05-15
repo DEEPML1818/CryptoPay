@@ -7,6 +7,7 @@ import { ThemeProvider } from "next-themes";
 import NotFound from "@/pages/not-found";
 import Dashboard from "@/pages/dashboard";
 import Invoices from "@/pages/invoices";
+import PortalSelect from "@/pages/portal-select";
 import CreateInvoice from "@/pages/invoices/create";
 import ViewInvoice from "@/pages/invoices/view";
 import Payments from "@/pages/payments";
@@ -16,11 +17,14 @@ import Clients from "@/pages/clients";
 import Settings from "@/pages/settings";
 import Solana from "@/pages/solana";
 import AppLayout from "@/components/layout/app-layout";
+import ClientDashboard from "@/pages/client-dashboard";
+import FreelancerDashboard from "@/pages/freelancer-dashboard";
 
 function Router() {
   return (
     <Switch>
-      <Route path="/" component={Dashboard} />
+      <Route path="/client-dashboard" component={ClientDashboard} />
+      <Route path="/freelancer-dashboard" component={FreelancerDashboard} />
       <Route path="/invoices" component={Invoices} />
       <Route path="/invoices/create" component={CreateInvoice} />
       <Route path="/invoices/:id">
@@ -32,6 +36,7 @@ function Router() {
       <Route path="/clients" component={Clients} />
       <Route path="/solana" component={Solana} />
       <Route path="/settings" component={Settings} />
+      <Route path="/" component={PortalSelect} />
       <Route component={NotFound} />
     </Switch>
   );
