@@ -71,6 +71,7 @@ CryptoPayRoll enables seamless crypto payments and invoicing across roles and or
 ```bash
 git clone https://github.com/your-org/cryptopayroll.git
 cd cryptopayroll
+```
 
 ### 2. Install dependencies
 
@@ -78,11 +79,13 @@ cd cryptopayroll
 # Backend
 cd backend
 npm install
+```
 
 ```bash
 # Frontend
 cd ../frontend
 npm install
+```
 
 ### 3. Set up environment variables
 
@@ -94,11 +97,13 @@ Copy .env.example into .env in both frontend/ and backend/, and fill in required
 # Start backend
 cd backend
 npm run dev
+```
 
 ```bash
 # Start frontend
 cd ../frontend
 npm start
+```
 
 ## 📄 Smart Contracts
 
@@ -108,6 +113,7 @@ Run the following to build and deploy:
 ```bash
 anchor build
 anchor deploy
+```
 
 -Make sure your Solana CLI is configured with the appropriate network and wallet. 
 
@@ -133,12 +139,9 @@ Please make sure to read our [CONTRIBUTING.md](./CONTRIBUTING.md) and [CODE_OF_C
 
 ---
 
-## 📬 Contact & Community
-
-- 🌐 Website: [https://cryptopayroll.xyz](https://cryptopayroll.xyz)  
-- 🐦 Twitter: [@CryptoPayRoll](https://twitter.com/CryptoPayRoll)  
-- 📩 Email: [hello@cryptopayroll.xyz](mailto:hello@cryptopayroll.xyz)  
-- 💬 Discord: *Coming soon*
+## 📬 Contact
+ 
+- 📩 Email: [sc.cs.my@gmail.com](mailto:sc.cs.my@gmail.com)  
 
 ---
 
