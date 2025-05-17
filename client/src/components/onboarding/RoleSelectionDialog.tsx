@@ -34,7 +34,7 @@ export function RoleSelectionDialog({ open, onComplete }: RoleSelectionDialogPro
       
       toast({
         title: "Role selected",
-        description: `You are now using CryptoPay as a ${selectedRole === 'client' ? 'Client' : 'Freelancer'}`,
+        description: `You are now using CryptoPayRoll as a ${selectedRole === 'client' ? 'Client' : 'Freelancer'}`,
       });
       
       onComplete();
@@ -54,7 +54,7 @@ export function RoleSelectionDialog({ open, onComplete }: RoleSelectionDialogPro
     <Dialog open={open}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle className="text-xl font-semibold">Welcome to CryptoPay</DialogTitle>
+          <DialogTitle className="text-xl font-semibold">Welcome to CryptoPayRoll</DialogTitle>
           <DialogDescription>
             Choose how you want to use the platform. You can change this anytime.
           </DialogDescription>

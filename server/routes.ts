@@ -4,8 +4,27 @@ import { storage } from "./storage";
 import { z } from "zod";
 import { insertInvoiceSchema, insertTransactionSchema, insertContactSchema } from "@shared/schema";
 import fetch from 'node-fetch';
+import walrusRoutes from './routes/walrus-routes';
+import { kvStorage } from './kv-storage';
+import { wormholeBridge } from './wormhole-bridge';
+import { db } from './db';
+import { eq } from 'drizzle-orm';
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Initialize KV storage system
+  await kvStorage.initialize();
+  
+  // Set up request enhancers to provide database access to route handlers
+  app.use('/api/walrus', (req: any, res, next) => {
+    // Add db and schema utilities to the request object
+    req.db = db;
+    req.eq = eq;
+    next();
+  });
+  
+  // Register enhanced storage and cross-chain routes
+  app.use('/api/walrus', walrusRoutes);
+  
   // API routes with /api prefix
   
   // User routes
@@ -345,7 +364,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         status: 'success',
         timestamp: new Date(),
         transactionHash: transactionHash || `sim_${Date.now()}`,
-        memo: memo || "Direct payment through CryptoPay",
+        memo: memo || "Direct payment through CryptoPayRoll",
       });
       
       // Return transaction data

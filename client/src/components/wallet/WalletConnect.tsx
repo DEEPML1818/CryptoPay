@@ -54,7 +54,7 @@ export function WalletConnect() {
         <CardHeader className="pb-3">
           <CardTitle>Connect Wallet</CardTitle>
           <CardDescription>
-            Connect your Solana wallet to access CryptoPay features.
+            Connect your Solana wallet to access CryptoPayRoll features.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -81,7 +81,7 @@ export function WalletConnect() {
           Wallet Connected
         </CardTitle>
         <CardDescription>
-          Your Solana wallet is connected to CryptoPay.
+          Your Solana wallet is connected to CryptoPayRoll.
         </CardDescription>
       </CardHeader>
       <CardContent>

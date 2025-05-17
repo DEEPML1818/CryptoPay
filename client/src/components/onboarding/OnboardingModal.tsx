@@ -55,10 +55,10 @@ export function OnboardingModal({ open, onComplete }: OnboardingModalProps) {
     
     try {
       // For now, we'll store the role in localStorage while the API is being developed
-      localStorage.setItem(`cryptopay_role_${address}`, selectedRole);
+      localStorage.setItem(`cryptopayroll_role_${address}`, selectedRole);
       
       toast({
-        title: "Welcome to CryptoPay!",
+        title: "Welcome to CryptoPayRoll!",
         description: `Your account is set up as a ${selectedRole === 'client' ? 'Client' : 'Freelancer'}.`,
       });
       
@@ -88,7 +88,7 @@ export function OnboardingModal({ open, onComplete }: OnboardingModalProps) {
     <Dialog open={open} onOpenChange={() => {}}>
       <DialogContent className="sm:max-w-[550px]">
         <DialogHeader>
-          <DialogTitle className="text-xl">Welcome to CryptoPay</DialogTitle>
+          <DialogTitle className="text-xl">Welcome to CryptoPayRoll</DialogTitle>
           <DialogDescription>
             To personalize your experience, please select how you'll be using the platform
           </DialogDescription>

@@ -30,7 +30,7 @@ export function Layout({ children }: LayoutProps) {
     setUserRole(selectedRole as 'client' | 'freelancer');
     
     toast({
-      title: "Welcome to CryptoPay!",
+      title: "Welcome to CryptoPayRoll!",
       description: `Your dashboard is now personalized for ${selectedRole === 'client' ? 'managing client payments' : 'receiving freelancer payments'}.`,
     });
   };

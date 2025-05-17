@@ -126,7 +126,7 @@ export default function Payments() {
         <div className="p-6">
           <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">Secure Payment Processing</h3>
           <p className="text-gray-500 dark:text-gray-400">
-            Track all your payments and transactions in one place. CryptoPay leverages Solana's high-speed blockchain for fast and secure payments.
+            Track all your payments and transactions in one place. CryptoPayRoll leverages Solana's high-speed blockchain for fast and secure payments.
           </p>
         </div>
       </div>

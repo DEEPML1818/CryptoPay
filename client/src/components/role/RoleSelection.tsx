@@ -57,7 +57,7 @@ export function RoleSelection({ onRoleSelected }: RoleSelectionProps) {
   return (
     <Card className="w-full max-w-2xl mx-auto">
       <CardHeader className="text-center">
-        <CardTitle className="text-2xl font-bold">Welcome to CryptoPay</CardTitle>
+        <CardTitle className="text-2xl font-bold">Welcome to CryptoPayRoll</CardTitle>
         <CardDescription>
           Select your role to personalize your dashboard and experience
         </CardDescription>

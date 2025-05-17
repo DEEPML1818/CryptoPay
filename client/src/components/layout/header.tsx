@@ -122,7 +122,7 @@ export function Header({ toggleMobileSidebar }: HeaderProps) {
                 alt="User profile" 
               />
               <AvatarFallback>
-                {userRole === 'client' ? 'CL' : userRole === 'freelancer' ? 'FR' : 'CP'}
+                {userRole === 'client' ? 'CL' : userRole === 'freelancer' ? 'FR' : 'CPR'}
               </AvatarFallback>
             </Avatar>
           </div>

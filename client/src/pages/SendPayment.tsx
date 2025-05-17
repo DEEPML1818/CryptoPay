@@ -116,7 +116,7 @@ export default function SendPayment() {
         senderWallet: address || "",
         recipientWallet: values.recipientWalletAddress,
         amount: values.amount,
-        memo: values.memo || "Payment from CryptoPay"
+        memo: values.memo || "Payment from CryptoPayRoll"
       });
       
       if (!txId) {

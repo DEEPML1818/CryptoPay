@@ -27,7 +27,7 @@ export function RoleSelector({ open, onComplete }: RoleSelectorProps) {
   const handleContinue = () => {
     // Save role selection in localStorage for persistence
     if (address) {
-      localStorage.setItem(`cryptopay_role_${address}`, selectedRole);
+      localStorage.setItem(`cryptopayroll_role_${address}`, selectedRole);
       
       toast({
         title: "Role selected!",
@@ -48,7 +48,7 @@ export function RoleSelector({ open, onComplete }: RoleSelectorProps) {
     <Dialog open={open} onOpenChange={() => {}}>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle className="text-xl">Welcome to CryptoPay</DialogTitle>
+          <DialogTitle className="text-xl">Welcome to CryptoPayRoll</DialogTitle>
           <DialogDescription>
             Select your role to personalize your experience
           </DialogDescription>

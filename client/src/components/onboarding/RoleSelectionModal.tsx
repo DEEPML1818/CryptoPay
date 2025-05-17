@@ -37,7 +37,7 @@ export function RoleSelectionModal({ open, onComplete }: RoleSelectionModalProps
         <DialogHeader>
           <DialogTitle className="text-xl font-bold">Choose Your Role</DialogTitle>
           <DialogDescription>
-            Select how you'll primarily use CryptoPay. You can perform both roles, but your dashboard will be optimized for your primary role.
+            Select how you'll primarily use CryptoPayRoll. You can perform both roles, but your dashboard will be optimized for your primary role.
           </DialogDescription>
         </DialogHeader>
         

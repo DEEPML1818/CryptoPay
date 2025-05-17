@@ -33,7 +33,7 @@ export function UserRoleProvider({ children }: { children: React.ReactNode }) {
       // Save wallet-specific role preference
       const walletAddress = localStorage.getItem('solanaWalletAddress');
       if (walletAddress) {
-        localStorage.setItem(`role_${walletAddress}`, role);
+        localStorage.setItem(`cryptopayroll_role_${walletAddress}`, role);
       }
       
       // Also save to backend when API is available
@@ -59,7 +59,7 @@ export function UserRoleProvider({ children }: { children: React.ReactNode }) {
       
       const walletAddress = localStorage.getItem('solanaWalletAddress');
       if (walletAddress) {
-        localStorage.removeItem(`role_${walletAddress}`);
+        localStorage.removeItem(`cryptopayroll_role_${walletAddress}`);
       }
     }
     

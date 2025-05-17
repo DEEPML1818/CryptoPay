@@ -21,6 +21,7 @@ import Payments from "@/pages/Payments";
 import SendPayment from "@/pages/SendPayment";
 import Conversions from "@/pages/Conversions";
 import TransactionHistory from "@/pages/TransactionHistory";
+import CrossChainTransfer from "@/pages/CrossChainTransfer";
 import Contacts from "@/pages/Contacts";
 import Settings from "@/pages/Settings";
 import NotFound from "@/pages/not-found";
@@ -131,6 +132,9 @@ function Router() {
         </Route>
         <Route path="/transactions">
           {() => <RoleRoute component={TransactionHistory} requiredRole="any" />}
+        </Route>
+        <Route path="/cross-chain">
+          {() => <RoleRoute component={CrossChainTransfer} requiredRole="any" />}
         </Route>
         <Route path="/contacts">
           {() => <RoleRoute component={Contacts} requiredRole="any" />}

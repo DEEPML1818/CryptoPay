@@ -18,7 +18,8 @@ import {
   Receipt,
   CircleDollarSign,
   Wallet,
-  LineChart
+  LineChart,
+  ArrowLeftRight
 } from "lucide-react";
 
 interface SidebarProps {
@@ -45,6 +46,7 @@ export function Sidebar({}: SidebarProps) {
     { path: "/payments", label: "Payments", icon: <CreditCard className="mr-3 h-4 w-4" /> },
     { path: "/payments/send", label: "Send Payment", icon: <CircleDollarSign className="mr-3 h-4 w-4" /> },
     { path: "/transactions", label: "Transaction History", icon: <History className="mr-3 h-4 w-4" /> },
+    { path: "/cross-chain", label: "Cross-Chain Bridge", icon: <RefreshCw className="mr-3 h-4 w-4" /> },
     { path: "/contacts", label: "Freelancers", icon: <Users className="mr-3 h-4 w-4" /> },
     { path: "/conversions", label: "Currency Exchange", icon: <RefreshCw className="mr-3 h-4 w-4" /> },
   ];
@@ -89,7 +91,7 @@ export function Sidebar({}: SidebarProps) {
                   <CreditCard />
                 </div>
               </div>
-              <span className="text-xl font-bold text-primary dark:text-white">CryptoPay</span>
+              <span className="text-xl font-bold text-primary dark:text-white">CryptoPayRoll</span>
             </div>
           </div>
           

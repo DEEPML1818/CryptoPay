@@ -32,7 +32,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (connected && address) {
       // Check localStorage for saved role
-      const savedRole = localStorage.getItem(`cryptopay_role_${address}`);
+      const savedRole = localStorage.getItem(`cryptopayroll_role_${address}`);
       
       if (savedRole && (savedRole === 'client' || savedRole === 'freelancer')) {
         setRole(savedRole);
