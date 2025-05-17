@@ -1,4 +1,4 @@
-<p align="center"><img src="CryptoPayRoll/attached_assets/cryptopayroll.png" width="480"\></p>
+<p align="center"><img src="/attached_assets/cryptopayroll.png" width="480"\></p>
  
 ## 🔥 CryptoPayRoll — Decentralized Payroll & Invoicing Platform on Solana
 
