@@ -1,0 +1,54 @@
+Objective:
+Build a complete CryptoPay MVP dApp on Replit that is fully connected to the Solana devnet. The system must include:
+- On-Chain Functionality:
+Develop secure smart contracts using Rust and Anchor to manage invoice creation, escrow payments, and final fund releases.
+Ensure that all on-chain interactions (such as invoice creation and fund transfers) are connected to Solana devnet.
+- Wormhole Integration:
+Integrate the Wormhole SDK/Bridge within the project to enable cross-chain interactions. Whether you're swapping tokens, sending cross-chain messages, or facilitating cross-chain payments, the Wormhole component must be fully functional, allowing funds to be converted or transferred between chains in a secure manner.
+- Invoice Data Storage with Walrus:
+Use Walrus (a persistent, key-value data store) to hold all invoice data off-chain. Invoice records—complete with metadata, timestamps, payment history, and status—should be reliably stored and easily fetched by your Node.js backend, providing a single point of truth for all invoice-related operations.
+- Backend Server:
+Build a robust Node.js/Express backend that coordinates on-chain instructions, manages user and transaction data, interacts with Wormhole for any cross-chain operations, and stores/retrieves invoice details from Walrus.
+Ensure every API endpoint accurately records and returns live data from both the Solana blockchain and the Walrus data store.
+- Frontend Dashboard (React & Tailwind CSS):
+Develop role-based (Client and Freelancer) interfaces where users can:
+- Create, view, and manage invoices.
+- Initiate escrow payments and use a "Direct Pay" button.
+- See real-time wallet balances (fetched live from the connected Solana wallet).
+- View a transaction history that includes real transaction data (including data from cross-chain payments via Wormhole adjustments, if applicable).
+- Experience live updates, with data coming from both the blockchain and the Walrus data store.
+Implementation Details:
+- On-Chain (program/):
+- Set up your Anchor project to deploy on Solana devnet.
+- Implement smart contract functions such as create_invoice, pay_invoice, release_payment, and refund_payment.
+- Use PDAs for managing escrow accounts securely.
+- Ensure the contracts are tested locally and deployed to devnet.
+- Wormhole Integration:
+- Integrate the Wormhole SDK to enable cross-chain transfers.
+- Add helper methods in your backend to call Wormhole functions for swapping tokens or sending funds between chains.
+- Ensure test transactions using Wormhole are fully functional.
+- Walrus as Invoice Data Store:
+- Integrate Walrus (or a similar persistent key-value store library available on Replit) into your Node.js backend.
+- Use Walrus to store each invoice record with details such as invoice ID, amount, status, creation timestamp, and associated user metadata.
+- Provide API endpoints to query and update this data in real time.
+- Backend (server/):
+- Build Express endpoints to handle:
+- Invoice creation (relaying data from the frontend to the smart contract).
+- Processing payments (invoking on-chain pay_invoice, and optionally calling Wormhole for cross-chain transfers).
+- Updating transaction history and invoice status in Walrus.
+- Ensure environment variables and devnet configuration are correctly set (e.g., use https://api.devnet.solana.com for Solana connections).
+- Frontend (client/):
+- Implement a responsive dashboard with Tailwind CSS and React.
+- Integrate the Solana Wallet Adapter configured for devnet to fetch live wallet balances.
+- Build separate dashboards for Clients and Freelancers:
+- Clients can create and manage invoices, initiate escrow payments, and directly pay invoices.
+- Freelancers can view incoming invoices, check payment statuses, and track connected transactions.
+- Include a dynamic transaction history view that displays live data from both on-chain transactions and Walrus-stored invoice records.
+- Provide clear UI feedback for cross-chain operations via Wormhole.
+Expected Outcome:
+- Fully Live dApp: The CryptoPay MVP is deployed on Replit and connected to the Solana devnet.
+- Cross-Chain Capabilities: Wormhole integration is active, allowing for secure cross-chain payment functionalities.
+- Invoice Management: Invoice data is persistently stored and retrievable using Walrus, ensuring accurate transaction history and status updates.
+- Real-Time Dashboard: Users see actual, live data including current wallet balances, on-chain transaction statuses, and complete invoice histories.
+Deploy the project on Replit with these configurations to demonstrate a fully working, end-to-end decentralized payroll and invoicing system. Every layer—from smart contracts to UI—must operate cohesively with live interactions, Wormhole cross-chain capabilities, and persistent invoice storage via Walrus.
+Happy coding!

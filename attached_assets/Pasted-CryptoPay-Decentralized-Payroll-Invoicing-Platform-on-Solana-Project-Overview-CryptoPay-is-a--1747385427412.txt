@@ -1,0 +1,104 @@
+CryptoPay: Decentralized Payroll & Invoicing Platform on Solana
+
+Project Overview
+CryptoPay is a full-stack decentralized platform where businesses and freelancers can manage payroll, generate invoices (in fiat and cryptocurrency), and process payments seamlessly. The system leverages Solana’s high-speed blockchain using Rust and Anchor for smart contract development, integrates Mercuryo for fiat-to-crypto conversions, and uses Streamflow SDK for automated payment processing. A React frontend provides a user-friendly dashboard revealing live invoice, payroll, and payment data.
+
+Project Structure
+The repository should be organized as a monorepo with the following directories:
+/ (project root)
+├── /client       # React-based frontend with Tailwind CSS
+├── /server       # Node.js backend using Express.js for API endpoints and integration logic
+└── /program      # Solana smart contract built with Rust and Anchor framework
+
+
+Use Git for version control. Replit supports multi-file projects, so set up the workspace with these directories to enable a seamless development environment.
+
+Smart Contract (Program) Development
+Location: /program
+Tools: Rust, Anchor Framework
+Requirements & Functions:
+- Invoice Creation and Management:
+- Accounts & State:
+- Create an Invoice account containing:
+- Invoice ID
+- Business (payer) and freelancer (payee) public keys
+- Amount due (in SOL or token equivalent)
+- Payment status (e.g., Pending, Paid, Released, Refunded)
+- Deadline and metadata (description, timestamp, etc.)
+- Instruction Functions:
+- create_invoice(ctx, parameters): Initializes a new invoice with provided details.
+- update_invoice(ctx, invoice_id, new_parameters): Modify invoice details if necessary.
+- Escrow & Payment Processing:
+- Instruction Functions:
+- pay_invoice(ctx, invoice_id): Transfers funds from the payer to an escrow account managed by the contract.
+- release_payment(ctx, invoice_id): Releases escrowed funds to the freelancer upon job completion verification.
+- refund_payment(ctx, invoice_id): Refunds the payer if conditions aren’t met.
+- Use Anchor’s macros and error-handling to ensure atomic state transitions, protecting against race conditions and unauthorized access.
+- Testing:
+- Write unit and integration tests using Anchor’s testing framework in the /program/tests directory (TypeScript test scripts may be used).
+
+Backend API Development
+Location: /server
+Tools: Node.js, Express.js, @solana/web3.js
+Key Endpoints & Responsibilities:
+- Invoice Endpoints:
+- POST /api/invoice:
+- Accepts invoice data from the frontend.
+- Calls the Solana smart contract’s create_invoice instruction using the Solana Web3.js library.
+- GET /api/invoices:
+- Retrieves a list of invoices, optionally filtering by status or user.
+- Payment & Conversion Endpoints:
+- POST /api/invoice/:id/pay:
+- Initiates the payment process.
+- Uses the Streamflow SDK to schedule and automate payment disbursement (integration based on their GitHub docs).
+- POST /api/invoice/:id/convert:
+- Integrates with Mercuryo’s API to handle on-ramping/off-ramping.
+- Converts fiat amounts to crypto (and vice versa) using API calls as per Mercuryo Developer Docs (Mercuryo Docs).
+- Integration & Environment:
+- Use environment variables (.env file) to securely store API keys and configuration parameters for Mercuryo and Streamflow.
+- Implement error handling, logging, and input validation to safeguard financial transactions.
+
+Frontend Development
+Location: /client
+Tools: React.js, Tailwind CSS, Web3 libraries (e.g., @solana/wallet-adapter)
+Key Features:
+- Invoice & Payment Dashboard:
+- Build a responsive dashboard that shows:
+- Active invoices and their statuses (Pending, Paid, etc.)
+- Payment history and transaction details
+- Integration status for fiat conversions and escrow status
+- Invoice Generation:
+- A form that allows users to create a new invoice:
+- Fields for amount (support both crypto and fiat display), description, due date, and recipient details
+- Options to choose between direct crypto payment or conversion via Mercuryo
+- Wallet Integration & Notifications:
+- Integrate with Solana-compatible wallets (e.g., Phantom) to connect users’ crypto wallets.
+- Provide visual cues and notifications for state changes (e.g., successful payment, invoice updates).
+- API Integration:
+- Call endpoints from the backend (/api/invoice, /api/invoice/:id/pay, etc.) using Axios or Fetch API.
+- Display real-time status updates by polling or via WebSocket (if real-time alerts are needed).
+
+Deployment & Testing
+- Local Development:
+- Deploy the smart contract locally using the Solana CLI and Anchor’s localnet.
+- Run the Node.js server locally and ensure API endpoints are reachable from the React frontend.
+- Use Replit’s built-in terminal and preview tools for iterative development and testing.
+- Testing Suites:
+- Smart Contract: Use Anchor tests (TypeScript) to simulate various invoice lifecycle scenarios.
+- Backend: Write tests with a framework like Mocha/Chai or Jest for API endpoints.
+- Frontend: Use Jest/React Testing Library for component testing.
+- Documentation:
+- Include a README that explains setup steps, environment variables configuration, testing instructions, and deployment guidelines.
+
+Additional Considerations
+- Security:
+- Enforce strict smart contract authorization so that only the intended business or freelancer can trigger state transitions.
+- Validate all incoming requests on the backend to prevent injection attacks.
+- Scalability:
+- Design the Node.js API to handle concurrent requests and manage state transitions securely.
+- Modularity:
+- Keep the codebase modular so that additional payment integrations or features (e.g., cross-chain support via Wormhole) can be added without major restructuring.
+- Logging & Monitoring:
+- Integrate logging (using tools like Winston or Bunyan) on the server for debugging and audit trails.
+
+

@@ -1,179 +1,96 @@
-import { pgTable, text, serial, integer, boolean, timestamp, numeric, json } from "drizzle-orm/pg-core";
+import { pgTable, text, serial, integer, boolean, timestamp, decimal } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
-import { relations } from "drizzle-orm";
 
-// Base user schema
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
   username: text("username").notNull().unique(),
   password: text("password").notNull(),
-  email: text("email").notNull().unique(),
-  fullName: text("full_name").notNull(),
-  company: text("company"),
-  balance: numeric("balance").default("0").notNull(),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
+  walletAddress: text("wallet_address"),
+  companyName: text("company_name"),
+  email: text("email"),
+  role: text("role"), // 'client' or 'freelancer'
 });
 
-// Clients schema
-export const clients = pgTable("clients", {
-  id: serial("id").primaryKey(),
-  userId: integer("user_id").notNull().references(() => users.id),
-  name: text("name").notNull(),
-  email: text("email").notNull(),
-  company: text("company"),
-  phone: text("phone"),
-  address: text("address"),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-});
-
-// Wallets schema
-export const wallets = pgTable("wallets", {
-  id: serial("id").primaryKey(),
-  userId: integer("user_id").notNull().references(() => users.id),
-  type: text("type").notNull(), // BTC, ETH, etc.
-  address: text("address").notNull(),
-  label: text("label").notNull(),
-  isDefault: boolean("is_default").default(false).notNull(),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-});
-
-// Invoices schema
 export const invoices = pgTable("invoices", {
   id: serial("id").primaryKey(),
-  userId: integer("user_id").notNull().references(() => users.id),
-  clientId: integer("client_id").notNull().references(() => clients.id),
   invoiceNumber: text("invoice_number").notNull(),
-  amount: numeric("amount").notNull(),
-  cryptoAmount: numeric("crypto_amount"),
-  cryptoType: text("crypto_type"),
-  status: text("status").notNull(), // DRAFT, PENDING, PAID, OVERDUE
+  creatorId: integer("creator_id").notNull(), // The user who created the invoice
+  creatorWalletAddress: text("creator_wallet_address"), // Wallet address of the creator
+  recipientId: integer("recipient_id"), // Optional: If recipient is a registered user
+  recipientName: text("recipient_name").notNull(),
+  recipientWalletAddress: text("recipient_wallet_address"),
+  amount: decimal("amount", { precision: 18, scale: 9 }).notNull(), // SOL amount with precision
+  fiatAmount: decimal("fiat_amount", { precision: 10, scale: 2 }), // USD equivalent
+  description: text("description"),
+  status: text("status").notNull().default("draft"), // draft, pending, paid, escrowed, released, refunded, overdue
   dueDate: timestamp("due_date").notNull(),
-  paymentMethod: text("payment_method"), 
-  items: json("items").notNull(),
-  notes: text("notes"),
-  template: text("template").default("default").notNull(),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  issueDate: timestamp("issue_date").notNull().defaultNow(),
+  paymentDate: timestamp("payment_date"),
+  refundDate: timestamp("refund_date"),
+  escrowDate: timestamp("escrow_date"),
+  convertOnPayment: boolean("convert_on_payment").default(false),
+  // Blockchain-related fields
+  transactionHash: text("transaction_hash"), // Transaction hash on the blockchain
+  escrowAccountAddress: text("escrow_account_address"), // PDA address for escrow
+  onChainId: text("on_chain_id"), // ID reference on the blockchain
 });
 
-// Payments schema
-export const payments = pgTable("payments", {
+export const transactions = pgTable("transactions", {
   id: serial("id").primaryKey(),
-  userId: integer("user_id").notNull().references(() => users.id),
-  invoiceId: integer("invoice_id").references(() => invoices.id),
-  amount: numeric("amount").notNull(),
-  cryptoAmount: numeric("crypto_amount"),
-  cryptoType: text("crypto_type"),
-  status: text("status").notNull(), // PENDING, COMPLETED, FAILED
-  transactionId: text("transaction_id"),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
+  invoiceId: integer("invoice_id"),
+  senderWalletAddress: text("sender_wallet_address").notNull(),
+  recipientWalletAddress: text("recipient_wallet_address").notNull(),
+  amount: decimal("amount", { precision: 18, scale: 9 }).notNull(),
+  fiatAmount: decimal("fiat_amount", { precision: 10, scale: 2 }),
+  transactionType: text("transaction_type").notNull(), // payment, conversion, refund
+  signature: text("signature"), // Solana transaction signature
+  transactionHash: text("transaction_hash"), // Blockchain transaction hash
+  memo: text("memo"), // Optional memo for the transaction
+  timestamp: timestamp("timestamp").notNull().defaultNow(),
+  status: text("status").notNull(), // success, pending, failed
 });
 
-// Crypto prices for tracking
-export const cryptoPrices = pgTable("crypto_prices", {
+export const contacts = pgTable("contacts", {
   id: serial("id").primaryKey(),
-  symbol: text("symbol").notNull().unique(),
+  userId: integer("user_id").notNull(),
   name: text("name").notNull(),
-  price: numeric("price").notNull(),
-  priceChange24h: numeric("price_change_24h"),
-  lastUpdated: timestamp("last_updated").defaultNow().notNull(),
+  walletAddress: text("wallet_address"),
+  email: text("email"),
+  company: text("company"),
 });
 
 // Insert schemas
-export const insertUserSchema = createInsertSchema(users).omit({
-  id: true,
-  createdAt: true,
-  balance: true,
-});
-
-export const insertClientSchema = createInsertSchema(clients).omit({
-  id: true,
-  createdAt: true,
-});
-
-export const insertWalletSchema = createInsertSchema(wallets).omit({
-  id: true,
-  createdAt: true,
+export const insertUserSchema = createInsertSchema(users).pick({
+  username: true,
+  password: true,
+  walletAddress: true,
+  companyName: true,
+  email: true,
+  role: true,
 });
 
 export const insertInvoiceSchema = createInsertSchema(invoices).omit({
   id: true,
-  createdAt: true,
-  updatedAt: true,
 });
 
-export const insertPaymentSchema = createInsertSchema(payments).omit({
+export const insertTransactionSchema = createInsertSchema(transactions).omit({
   id: true,
-  createdAt: true,
 });
 
-export const insertCryptoPriceSchema = createInsertSchema(cryptoPrices).omit({
+export const insertContactSchema = createInsertSchema(contacts).omit({
   id: true,
-  lastUpdated: true,
 });
-
-// Define relations
-export const usersRelations = relations(users, ({ many }) => ({
-  clients: many(clients),
-  wallets: many(wallets),
-  invoices: many(invoices),
-  payments: many(payments),
-}));
-
-export const clientsRelations = relations(clients, ({ one, many }) => ({
-  user: one(users, {
-    fields: [clients.userId],
-    references: [users.id],
-  }),
-  invoices: many(invoices),
-}));
-
-export const walletsRelations = relations(wallets, ({ one }) => ({
-  user: one(users, {
-    fields: [wallets.userId],
-    references: [users.id],
-  }),
-}));
-
-export const invoicesRelations = relations(invoices, ({ one, many }) => ({
-  user: one(users, {
-    fields: [invoices.userId],
-    references: [users.id],
-  }),
-  client: one(clients, {
-    fields: [invoices.clientId],
-    references: [clients.id],
-  }),
-  payments: many(payments),
-}));
-
-export const paymentsRelations = relations(payments, ({ one }) => ({
-  user: one(users, {
-    fields: [payments.userId],
-    references: [users.id],
-  }),
-  invoice: one(invoices, {
-    fields: [payments.invoiceId],
-    references: [invoices.id],
-  }),
-}));
 
 // Types
-export type User = typeof users.$inferSelect;
 export type InsertUser = z.infer<typeof insertUserSchema>;
+export type User = typeof users.$inferSelect;
 
-export type Client = typeof clients.$inferSelect;
-export type InsertClient = z.infer<typeof insertClientSchema>;
-
-export type Wallet = typeof wallets.$inferSelect;
-export type InsertWallet = z.infer<typeof insertWalletSchema>;
-
-export type Invoice = typeof invoices.$inferSelect;
 export type InsertInvoice = z.infer<typeof insertInvoiceSchema>;
+export type Invoice = typeof invoices.$inferSelect;
 
-export type Payment = typeof payments.$inferSelect;
-export type InsertPayment = z.infer<typeof insertPaymentSchema>;
+export type InsertTransaction = z.infer<typeof insertTransactionSchema>;
+export type Transaction = typeof transactions.$inferSelect;
 
-export type CryptoPrice = typeof cryptoPrices.$inferSelect;
-export type InsertCryptoPrice = z.infer<typeof insertCryptoPriceSchema>;
+export type InsertContact = z.infer<typeof insertContactSchema>;
+export type Contact = typeof contacts.$inferSelect;

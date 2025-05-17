@@ -1,0 +1,62 @@
+Objective:
+Develop an MVP of CryptoPay where every component is connected end-to-end with the Solana blockchain. The application must demonstrate a working wallet integration (with role selection during wallet creation) and real, functional escrow payments through on-chain smart contracts. A robust backend server will manage all aspects of client (business) and freelancer user data, ensuring synchronized and real-time user interactions. The final product should be a cohesive, operational dApp that proves the concept from wallet onboarding to live escrow payments and user management.
+
+Core Requirements:
+- Solana Blockchain Integration:
+- On-Chain Smart Contracts:
+- Develop using Rust and the Anchor framework.
+- Create an Invoice account structure that includes invoice ID, Client (business) and Freelancer public keys, amount, due date, invoice status (Pending, Escrowed, Paid, Refunded), and metadata.
+- Implement instruction handlers for creating invoices, processing payments (establishing escrow with a PDA-managed account), releasing funds, and processing refunds.
+- Escrow Payments:
+- Ensure that funds move securely from the client’s account to an on-chain escrow account when an invoice is paid.
+- Funds should be held in escrow until the conditions for release (e.g., approval or multi-signature confirmation) are met.
+- Backend Server Management (Node.js & Express.js):
+- Comprehensive Off-Chain Server:
+- Build a Node.js/Express.js backend that stores and manages all data and interactions for both clients and freelancers.
+- Integrate with the Solana blockchain using libraries like @solana/web3.js and Anchor client libraries to relay on-chain transactions.
+- Provide RESTful API endpoints to manage:
+- User onboarding and wallet creation (with role selection).
+- Invoice creation and lifecycle management (creation, payment processing, escrow handling).
+- Payment processing and fiat/crypto conversion (using services like Mercuryo and payment automation via Streamflow).
+- Real-time event tracking via WebSockets/polling for blockchain event updates.
+- Maintain full user lifecycle data as the single point of truth for the entire dApp.
+- Frontend – Role-Based Interfaces (React & Tailwind CSS):
+- Wallet Creation & Role Selection:
+- Implement a clear, user-friendly wallet onboarding process. During wallet creation (or login), require the user to select a role—Client (business) or Freelancer.
+- Save the role selection (either locally or on-chain) and load the corresponding interface.
+- Separate Dashboards:
+- Client Dashboard:
+- Features for invoice creation, managing and viewing lists of invoices, initiating escrow payments, and tracking payment analytics.
+- Freelancer Dashboard:
+- Features for receiving and tracking invoices, viewing payment details (from escrow to released funds), and receiving real-time notifications.
+- Common Components:
+- Implement common UI elements like headers (integrating the Solana Wallet Adapter for wallet connectivity), a collapsible sidebar with role-specific navigation, responsive forms, modals, and data visualization (using libraries such as Chart.js or Recharts).
+- The user experience must be seamless across desktop and mobile devices.
+- Real-Time Updates:
+- Use WebSocket or polling mechanisms to reflect live blockchain events and user transaction statuses.
+- Unified MVP Demonstration:
+- Working Wallet Integration:
+- The MVP must include a fully functioning wallet connection flow. Upon onboarding, users must be able to create/use their Solana wallet and select their role, which then dynamically changes the UI.
+- Full End-to-End Flow:
+- The dApp must demonstrate real transactions from invoice creation, escrow funding through on-chain smart contracts, to successful payment releases.
+- Data Cohesion:
+- The backend must serve as the central hub, managing user data from wallet onboarding to invoice processing, ensuring that everything (client and freelancer interactions) is in sync and stored reliably.
+
+Replit Project Structure:
+Organize your Replit workspace as follows:
+/ (project root)
+├── client/         # React frontend for role-specific interfaces (Client vs. Freelancer), styled with TailwindCSS and integrated with the Solana Wallet Adapter.
+├── server/         # Node.js/Express backend managing user data, API endpoints, Solana blockchain interactions, and integration with external services (Mercuryo, Streamflow).
+└── program/        # Solana smart contracts written in Rust using the Anchor framework to manage on-chain state, escrow payments, and invoice lifecycle.
+
+
+
+Deployment & MVP Expectations:
+- On-Chain MVP:
+Ensure that the Solidity contracts (via Rust & Anchor) are deployed on a local Solana cluster (or devnet) and are fully functional. All payment instructions (create, escrow, release, refund) must execute as intended.
+- Backend MVP:
+The Node.js server must expose all necessary endpoints, accurately record every transaction and action from both client and freelancer users, and maintain synchronization with on-chain events.
+- Frontend MVP:
+The React app must provide a complete wallet onboarding process, a clear role selection interface, and separate dashboards that show real-time data and transaction statuses. All wallet interactions and API integrations must work flawlessly.
+- Comprehensive Integration:
+The entire system should be demonstrated as one working application where the blockchain (escrow, payments), backend (API, user management), and frontend (user interface, role-specific workflows) seamlessly interconnect to provide a smooth and secure user experience.

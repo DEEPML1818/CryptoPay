@@ -1,0 +1,33 @@
+Objective:
+Build a complete dApp where every component is connected to the Solana blockchain. The system will use on-chain smart contracts to manage invoice creation, escrow payments, and secure fund releases. Additionally, a robust backend server will manage all user data (both clients and freelancers) from A to Z, ensuring that all operations and financial transactions are reflected consistently across the app. The final result will be one operational application that integrates on-chain security with off-chain user management and real-time workflows.
+Core Requirements:
+- Solana Blockchain Integration:
+- On-Chain Smart Contracts:
+- Develop using Rust and the Anchor framework.
+- Define key structures like the Invoice account with fields for invoice id, client (business) and freelancer public keys, amount, due date, status, and metadata.
+- Implement instructions for creating invoices, processing payments (ensuring escrow is established), releasing funds, and processing refunds.
+- Escrow Payments:
+- Ensure funds flow securely from client accounts to a PDA-managed escrow account when an invoice is paid.
+- Design escrow logic so that funds are released only upon fulfillment/approval, supporting multi-signature approvals or vesting schedules when necessary.
+- Backend Server Management:
+- Comprehensive Off-Chain Server:
+- Build a robust Node.js/Express.js backend that stores and manages all data related to both client users (businesses) and freelancer users.
+- Integrate with Solana through libraries like @solana/web3.js to relay on-chain transactions.
+- Provide RESTful API endpoints for invoice creation, payment processing, event tracking, and fiat/crypto conversions (to be integrated with external services like Mercuryo for conversion and Streamflow for automated payments).
+- Maintain full lifecycle tracking and storage of user data—from onboarding and wallet creation (with role selection) to real-time invoice and payment status updates.
+- The backend should serve as the central authority that binds user profiles, transaction histories, and role-specific business logic, ensuring a single point of truth.
+- Frontend – Role-Based Interfaces:
+- Role Selection at Wallet Creation:
+- Implement a seamless wallet creation and onboarding flow where every new user selects their role (Client or Freelancer).
+- Store the role selection (either off-chain or on-chain) and load the corresponding dashboard with tailored UI elements.
+- Separate Interfaces:
+- Client Dashboard:
+- Manage invoice creation, view invoice status, control escrow payments, and track analytics.
+- Freelancer Dashboard:
+- View incoming invoices, track payment statuses (from escrow to released funds), and receive real-time notifications.
+- Common Features:
+- Use React with Tailwind CSS, integrating the Solana Wallet Adapter for wallet connectivity.
+- Provide real-time updates via WebSocket or polling, showing live blockchain events, transaction status, and user activity.
+- Implement smooth UX transitions and responsive layouts to ensure that both mobile and desktop interactions are fluid and intuitive.
+Overall Vision:
+Every component of CryptoPay—the on-chain smart contracts, the comprehensive Node.js backend, and the React-based frontend—must interact harmoniously. The smart contracts handle the trustless financial logic on Solana (including escrow payments), while the backend serves as the complete database and API provider for all user (client and freelancer) data and advanced functionalities. The frontend delivers a role-specific experience, ensuring users get tailored dashboards and interfaces based on their business or freelancer role. Together, these layers form a single, working, fully integrated dApp where blockchain security meets real-world user management.

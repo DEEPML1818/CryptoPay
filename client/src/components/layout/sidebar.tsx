@@ -1,170 +1,134 @@
-import { useState, useEffect } from "react";
-import { useLocation } from "wouter";
-import { useQuery } from "@tanstack/react-query";
-import { LayoutDashboard, FileText, DollarSign, Wallet, Users, Settings, Building, User } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { navigateTo } from "@/lib/navigation";
+import { Link, useLocation } from "wouter";
+import { useTheme } from "@/providers/ThemeProvider";
+import { Button } from "@/components/ui/button";
+import { useUserRole } from "@/hooks/useUserRole";
+import { 
+  LayoutDashboard, 
+  File, 
+  CreditCard, 
+  RefreshCw, 
+  Users, 
+  Settings,
+  Moon,
+  Sun,
+  PlusCircle,
+  Clock,
+  History,
+  UserCheck,
+  Receipt,
+  CircleDollarSign,
+  Wallet,
+  LineChart
+} from "lucide-react";
 
-export default function Sidebar() {
+interface SidebarProps {
+  // No longer need userRole prop as we get it from the context
+}
+
+export function Sidebar({}: SidebarProps) {
+  const { userRole } = useUserRole();
   const [location] = useLocation();
-  const [isOpen, setIsOpen] = useState(false);
-
-  // Close sidebar when changing routes on mobile
-  useEffect(() => {
-    setIsOpen(false);
-  }, [location]);
-
-  // Fetch user data
-  const { data: user } = useQuery({
-    queryKey: ["/api/me"],
-  });
-
-  // Define user type for TypeScript
-  interface User {
-    username: string;
-    email: string;
-    fullName: string;
+  const { theme, toggleTheme } = useTheme();
+  
+  const isActive = (path: string) => location === path;
+  
+  // Common navigation items for all users
+  const commonNavItems = [
+    { path: "/", label: "Dashboard", icon: <LayoutDashboard className="mr-3 h-4 w-4" /> },
+    { path: "/settings", label: "Settings", icon: <Settings className="mr-3 h-4 w-4" /> },
+  ];
+  
+  // Navigation items specific to clients (businesses)
+  const clientNavItems = [
+    { path: "/invoices/create", label: "Create Invoice", icon: <PlusCircle className="mr-3 h-4 w-4" /> },
+    { path: "/invoices", label: "Manage Invoices", icon: <File className="mr-3 h-4 w-4" /> },
+    { path: "/payments", label: "Payments", icon: <CreditCard className="mr-3 h-4 w-4" /> },
+    { path: "/payments/send", label: "Send Payment", icon: <CircleDollarSign className="mr-3 h-4 w-4" /> },
+    { path: "/transactions", label: "Transaction History", icon: <History className="mr-3 h-4 w-4" /> },
+    { path: "/contacts", label: "Freelancers", icon: <Users className="mr-3 h-4 w-4" /> },
+    { path: "/conversions", label: "Currency Exchange", icon: <RefreshCw className="mr-3 h-4 w-4" /> },
+  ];
+  
+  // Navigation items specific to freelancers
+  const freelancerNavItems = [
+    { path: "/invoices", label: "All Invoices", icon: <Receipt className="mr-3 h-4 w-4" /> },
+    { path: "/invoices/create", label: "Create Invoice", icon: <PlusCircle className="mr-3 h-4 w-4" /> },
+    { path: "/payments", label: "Payments", icon: <CreditCard className="mr-3 h-4 w-4" /> },
+    { path: "/transactions", label: "Transaction History", icon: <History className="mr-3 h-4 w-4" /> },
+    { path: "/contacts", label: "My Clients", icon: <UserCheck className="mr-3 h-4 w-4" /> },
+    { path: "/conversions", label: "Currency Exchange", icon: <RefreshCw className="mr-3 h-4 w-4" /> },
+  ];
+  
+  // Select navigation items based on user role - these are default items if no role is selected yet
+  let navItems = [
+    { path: "/", label: "Dashboard", icon: <LayoutDashboard className="mr-3 h-4 w-4" /> },
+    { path: "/invoices", label: "Invoices", icon: <File className="mr-3 h-4 w-4" /> },
+    { path: "/invoices/create", label: "Create Invoice", icon: <PlusCircle className="mr-3 h-4 w-4" /> },
+    { path: "/payments", label: "Payments", icon: <CreditCard className="mr-3 h-4 w-4" /> },
+    { path: "/payments/send", label: "Send Payment", icon: <CircleDollarSign className="mr-3 h-4 w-4" /> },
+    { path: "/conversions", label: "Conversions", icon: <RefreshCw className="mr-3 h-4 w-4" /> },
+    { path: "/contacts", label: "Contacts", icon: <Users className="mr-3 h-4 w-4" /> },
+    { path: "/settings", label: "Settings", icon: <Settings className="mr-3 h-4 w-4" /> },
+  ];
+  
+  // Update navigation based on role if defined
+  if (userRole === 'client') {
+    navItems = [...commonNavItems, ...clientNavItems];
+  } else if (userRole === 'freelancer') {
+    navItems = [...commonNavItems, ...freelancerNavItems];
   }
 
-  const userData = user as User | undefined;
-
-  const navLinks = [
-    { href: "/", label: "Dashboard", icon: <LayoutDashboard className="mr-3 h-5 w-5" /> },
-    { href: "/invoices", label: "Invoices", icon: <FileText className="mr-3 h-5 w-5" /> },
-    { href: "/payments", label: "Payments", icon: <DollarSign className="mr-3 h-5 w-5" /> },
-    { href: "/wallets", label: "Wallets", icon: <Wallet className="mr-3 h-5 w-5" /> },
-    { href: "/clients", label: "Clients", icon: <Users className="mr-3 h-5 w-5" /> },
-    { href: "/solana", label: "Solana", icon: <Wallet className="mr-3 h-5 w-5" /> },
-    { href: "/settings", label: "Settings", icon: <Settings className="mr-3 h-5 w-5" /> },
-  ];
-
   return (
-    <>
-      {/* Mobile overlay */}
-      {isOpen && (
-        <div 
-          className="fixed inset-0 z-40 bg-black/50 md:hidden" 
-          onClick={() => setIsOpen(false)}
-        />
-      )}
-
-      {/* Sidebar */}
-      <div className={cn(
-        "sidebar fixed md:relative z-50 w-64 h-full bg-white dark:bg-sidebar-background border-r border-border flex flex-col",
-        isOpen ? "open" : ""
-      )}>
-        <div className="p-6">
-          <div className="flex items-center space-x-2">
-            <DollarSign className="h-6 w-6 text-primary" />
-            <span className="text-primary font-bold text-xl">CryptoPay</span>
-          </div>
-        </div>
-
-        <nav className="flex-1 overflow-y-auto py-4">
-          <ul>
-            {/* Client and Freelancer Portal Links - Inserted here */}
-            <li key="client-portal" className="mb-1 px-2">
-              <div
-                onClick={() => navigateTo("/client-dashboard")}
-                className={cn(
-                  "sidebar-link flex items-center px-4 py-3 text-sm rounded-lg cursor-pointer",
-                  location === "/client-dashboard"
-                    ? "active"
-                    : "text-foreground hover:bg-background dark:hover:bg-sidebar-accent"
-                )}
-              >
-                <Building className="mr-3 h-5 w-5" />
-                Client Portal
-              </div>
-            </li>
-            <li key="freelancer-portal" className="mb-1 px-2">
-              <div
-                onClick={() => navigateTo("/freelancer-dashboard")}
-                className={cn(
-                  "sidebar-link flex items-center px-4 py-3 text-sm rounded-lg cursor-pointer",
-                  location === "/freelancer-dashboard"
-                    ? "active"
-                    : "text-foreground hover:bg-background dark:hover:bg-sidebar-accent"
-                )}
-              >
-                <User className="mr-3 h-5 w-5" />
-                Freelancer Portal
-              </div>
-            </li>
-            {/* End of Inserted Links */}
-            {navLinks.map((link) => (
-              <li key={link.href} className="mb-1 px-2">
-                <div 
-                  onClick={() => navigateTo(link.href)}
-                  className={cn(
-                    "sidebar-link flex items-center px-4 py-3 text-sm rounded-lg cursor-pointer",
-                    location === link.href
-                      ? "active"
-                      : "text-foreground hover:bg-background dark:hover:bg-sidebar-accent"
-                  )}>
-                  {link.icon}
-                  {link.label}
-                </div>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        <div className="p-4 border-t border-border">
-          <div className="bg-background dark:bg-sidebar-accent rounded-xl p-4">
-            <p className="text-xs font-medium text-muted-foreground mb-2">Current Balance</p>
-            <p className="text-lg font-semibold">$12,543.45</p>
-            <div className="flex items-center mt-2 text-xs text-secondary">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                className="w-3 h-3 mr-1 fill-current"
-              >
-                <path d="M16.24 7.76C15.07 6.59 13.54 6 12 6v6l-4.24 4.24c2.34 2.34 6.14 2.34 8.49 0a5.99 5.99 0 0 0-.01-8.48Z" />
-              </svg>
-              <span>+2.4% from last month</span>
-            </div>
-          </div>
-        </div>
-
-        {userData && (
-          <div className="p-4 border-t border-border">
+    <div className="hidden md:flex md:flex-shrink-0">
+      <div className="flex flex-col w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
+        <div className="flex flex-col flex-grow pt-5 pb-4 overflow-y-auto">
+          <div className="flex items-center flex-shrink-0 px-4 mb-5">
             <div className="flex items-center">
-              <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center mr-3">
-                <span className="font-medium text-sm">
-                  {userData.fullName.split(' ').map((n: string) => n[0]).join('').toUpperCase()}
-                </span>
+              <div className="bg-accent rounded-lg p-2 mr-2">
+                <div className="text-white">
+                  <CreditCard />
+                </div>
               </div>
-              <div>
-                <p className="text-sm font-medium">{userData.fullName}</p>
-                <p className="text-xs text-muted-foreground">{userData.email}</p>
-              </div>
+              <span className="text-xl font-bold text-primary dark:text-white">CryptoPay</span>
             </div>
           </div>
-        )}
+          
+          <nav className="mt-5 flex-1 px-2 space-y-2">
+            {navItems.map((item) => (
+              <div key={item.path}>
+                <Link href={item.path}>
+                  <div
+                    className={`group flex items-center px-2 py-2 text-sm font-medium rounded-md cursor-pointer ${
+                      isActive(item.path)
+                        ? "bg-primary text-white"
+                        : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    }`}
+                  >
+                    {item.icon}
+                    {item.label}
+                  </div>
+                </Link>
+              </div>
+            ))}
+          </nav>
+        </div>
+        
+        <div className="flex-shrink-0 flex border-t border-gray-200 dark:border-gray-700 p-4">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="w-full justify-start"
+            onClick={toggleTheme}
+          >
+            {theme === "dark" ? (
+              <Sun className="mr-2 h-4 w-4" />
+            ) : (
+              <Moon className="mr-2 h-4 w-4" />
+            )}
+            {theme === "dark" ? "Light Mode" : "Dark Mode"}
+          </Button>
+        </div>
       </div>
-
-      {/* Mobile toggle button - returned for use in header */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="md:hidden text-foreground focus:outline-none"
-        aria-label="Toggle menu"
-      >
-        <svg 
-          xmlns="http://www.w3.org/2000/svg" 
-          className="h-6 w-6" 
-          fill="none" 
-          viewBox="0 0 24 24" 
-          stroke="currentColor"
-        >
-          <path 
-            strokeLinecap="round" 
-            strokeLinejoin="round" 
-            strokeWidth={2} 
-            d="M4 6h16M4 12h16M4 18h16" 
-          />
-        </svg>
-      </button>
-    </>
+    </div>
   );
 }

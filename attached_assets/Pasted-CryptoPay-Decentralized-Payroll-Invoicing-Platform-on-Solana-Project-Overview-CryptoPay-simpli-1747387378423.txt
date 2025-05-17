@@ -1,0 +1,120 @@
+CryptoPay – Decentralized Payroll & Invoicing Platform on Solana
+Project Overview
+CryptoPay simplifies payroll, invoicing, and payments for businesses and freelancers by integrating Solana’s high-speed blockchain, off-chain fiat conversion (via Mercuryo), and automated payment scheduling (via Streamflow). Users are prompted to select their role (Client or Freelancer) at wallet creation, which then loads a tailored interface featuring role-specific dashboards, invoice management, and payment functionalities.
+
+Replit Project Structure
+Organize your Replit project as a monorepo structured into three main directories:
+/ (project root)
+├── client/         # React frontend (Tailwind CSS) implementing separate UIs for Clients and Freelancers
+├── server/         # Node.js backend (Express.js) to connect with Solana, Mercuryo, and Streamflow
+└── program/        # Solana smart contract written in Rust using the Anchor framework
+
+
+Configure the Replit environment with proper language runtimes for Node.js and Rust (Anchor CLI) and ensure your secret keys (API keys, wallet seeds) are stored securely in environment variables.
+
+1. On-Chain Program (Smart Contracts with Rust & Anchor)
+Location: /program
+Technologies: Rust, Anchor
+Main Objectives:
+- Maintain on-chain state for invoices, escrow payments, and transaction tracking.
+- Control state transitions (Invoice creation, payment, refund, release).
+Key Implementation Details:
+- Account Structures & Enums:
+- Create an Invoice struct with fields such as invoice ID, business and freelancer public keys, amount, due date, status, and metadata.
+- Use an InvoiceStatus enum (e.g., Pending, Escrowed, Paid, Refunded).
+#[account]
+pub struct Invoice {
+    pub id: u64,
+    pub business: Pubkey,
+    pub freelancer: Pubkey,
+    pub amount: u64,
+    pub status: InvoiceStatus,
+    pub due_date: i64,
+    pub metadata: String, // up to 200 characters
+}
+
+#[derive(AnchorSerialize, AnchorDeserialize, Clone, PartialEq, Eq)]
+pub enum InvoiceStatus {
+    Pending,
+    Escrowed,
+    Paid,
+    Refunded,
+}
+- Instruction Handlers:
+- create_invoice: Initializes an invoice based on user input.
+- pay_invoice: Transitions an invoice to escrow by transferring funds from a Client to a PDA-managed escrow account.
+- release/refund: Allow releasing funds to the Freelancer upon work approval or refunding back to the Client if conditions aren’t met.
+- Use Anchor’s macros and secure PDAs for multi-signature and escrow management.
+- Optimization & Advanced Features:
+- Apply Solana’s compute budget API to lower transaction fees.
+- Consider introducing recurring payments and vesting schedules that can automatically disburse funds over time (possibly via integrated Streamflow SDK).
+
+2. Off-Chain Backend (Node.js & Express.js)
+Location: /server
+Technologies: Node.js, Express, @solana/web3.js
+Responsibilities:
+- API Endpoints:
+- Invoice Endpoints:
+- POST /api/invoice: Accepts invoice details and calls the on-chain create_invoice instruction.
+- GET /api/invoices: Returns invoice data (with filtering/sorting).
+- Payment Endpoints:
+- POST /api/invoice/:id/pay: Processes payments using Solana transactions for escrow creation.
+- POST /api/invoice/:id/convert: Integrates with Mercuryo’s API for fiat-crypto on-/off-ramping.
+- Middleware & Error Handling:
+- Validate inputs, log transactions, and securely forward instructions to the on-chain program.
+- Use environment variables (in a .env file) to store API keys and endpoint URLs for Mercuryo and Streamflow.
+- Real-Time Event Listener:
+- Develop a WebSocket or polling mechanism to monitor on-chain events (like status changes on invoices) and send live notifications to the frontend.
+
+3. Frontend (React & TailwindCSS) with Role-Based Interfaces
+Location: /client
+Technologies: React.js, TailwindCSS, @solana/wallet-adapter, React Router
+Overview:
+The frontend must provide tailored user journeys based on the role selected at wallet creation. When a user creates a new wallet (or logs in), they are prompted to choose either Client or Freelancer. This selection configures the navigation, dashboard layout, and available actions.
+Key UI Components & Flows:
+- Wallet Creation & Role Selection:
+- Onboarding Screen:
+- Present a clean sign-up/sign-in screen integrating social sign-ins (Google/Apple) alongside wallet generation.
+- Include a role selector (radio buttons or toggle) to let the user choose between Client and Freelancer. Save this selection locally (or on-chain, if desired) to load the appropriate interface.
+- Separate Dashboards:
+- Client (Business) Dashboard:
+- Invoice Management:
+- Create and view invoices.
+- Track payment statuses, view conversion details if fiat integration is used.
+- Payment Processing:
+- Initiate escrow payments for projects and approve multi-signature or recurring payment requirements.
+- Analytics & Notifications:
+- Display charts showing total payments, pending invoices, and recent transactions.
+- Freelancer Dashboard:
+- Invoice Notifications:
+- View invoices received from various Clients.
+- Accept or dispute payments with clear status indicators.
+- Payment Details:
+- Track payments in escrow, pending release, and received funds.
+- Real-Time Updates:
+- Receive instant notifications when an invoice status changes (using WebSocket updates).
+- Common Components:
+- Header & Navigation Bar:
+- Display the app logo, wallet status (using Solana Wallet Adapter), and a role-specific menu (e.g., Clients might see “Create Invoice” while Freelancers might see “My Invoices”).
+- Responsive Modals & Forms:
+- Invoice creation forms should allow the user to select between direct crypto payments or converting fiat amounts via Mercuryo.
+- Interactive Tables & Charts:
+- Use visualization libraries (Chart.js, Recharts) to represent financial data dynamically.
+- Real-Time & Reactive UX:
+- Implement state management (using Redux or React Context API) to manage user sessions, wallet connection, and role-specific data.
+- Ensure smooth transitions, responsive design, and immediate feedback for actions (toast notifications, loading skeletons).
+
+4. Deployment & Testing on Replit
+- Local Development Setup:
+- Run the Solana localnet and deploy the Anchor program via Replit’s shell.
+- Start the Node.js backend server and verify API endpoints.
+- Use Replit’s web preview to ensure the React frontend loads properly, with correct role-based routes.
+- Testing:
+- On-Chain:
+- Write Anchor tests (TypeScript) in the /tests folder to simulate invoice creation, payment processing, and refund scenarios.
+- Backend:
+- Use Jest/Mocha for testing API endpoints.
+- Frontend:
+- Implement component tests with React Testing Library to verify both Client and Freelancer interfaces and ensure proper role selection at wallet creation.
+- Documentation:
+- Create a README.md file that explains installation, configuration (including environment variables), running tests, and deploying the application from Replit.

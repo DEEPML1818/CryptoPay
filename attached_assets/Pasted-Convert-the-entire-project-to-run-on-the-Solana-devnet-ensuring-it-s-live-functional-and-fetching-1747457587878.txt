@@ -1,0 +1,37 @@
+Convert the entire project to run on the Solana devnet, ensuring it’s live, functional, and fetching real-time statistics. Here’s what needs to be done:
+- On-Chain Configuration (Anchor/Smart Contracts):
+- Update your Anchor.toml (or equivalent configuration file) to point to the devnet RPC endpoint (e.g., https://api.devnet.solana.com).
+- Redeploy your smart contracts on devnet so all on-chain interactions are using devnet data.
+- Backend Integration:
+- Change your connection settings in the Node.js backend (using @solana/web3.js or similar libraries) to use the devnet endpoint.
+- Ensure that any API endpoints that fetch or relay blockchain data (like wallet balances, transaction stats, and invoice states) are using the devnet configuration.
+- Validate that your backend correctly reflects on-chain events in real time by listening to devnet events.
+- Frontend Dashboard:
+- Adjust all wallet connection settings, ensuring the Solana Wallet Adapter is set up to connect to devnet.
+- Enable the dashboard to fetch and display live stats (e.g., wallet balances, recent transactions, invoice statuses) from the devnet.
+- Verify that the role-based user interfaces (Client and Freelancer) show real, live data from devnet, including dynamic updates as transactions occur.
+- Live & Working Demo:
+- Once the configuration is updated, run the entire app on Replit and perform tests to confirm that:
+- Your smart contracts are live on devnet.
+- Real-time events (such as escrow, invoice creation, and balance updates) are available from the devnet.
+- The frontend dashboard shows actual, live stats directly retrieved from the connected devnet wallet and backend updates.
+- All parts of the dApp (on-chain, backend, and UI) are correctly wired together and operate in real time.
+Example Changes:
+- In Anchor.toml:
+[provider]
+cluster = "devnet"
+url = "https://api.devnet.solana.com"
+- In your Node.js backend (using @solana/web3.js):
+const solanaWeb3 = require('@solana/web3.js');
+const connection = new solanaWeb3.Connection(
+  "https://api.devnet.solana.com", 
+  'confirmed'
+);
+- In your React frontend:
+import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
+
+const network = WalletAdapterNetwork.Devnet;
+const endpoint = "https://api.devnet.solana.com"; // ensure your wallet adapter uses this endpoint
+
+
+

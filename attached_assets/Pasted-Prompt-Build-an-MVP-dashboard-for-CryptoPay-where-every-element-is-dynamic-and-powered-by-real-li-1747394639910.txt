@@ -1,0 +1,19 @@
+Prompt:
+Build an MVP dashboard for CryptoPay where every element is dynamic and powered by real, live data. The application must include role-based interfaces (Client and Freelancer) with the following specifications:
+- Real User Data:
+- When a user creates or logs in to their wallet, they must select their role (Client or Freelancer).
+- All user information (profile details, chosen role, and settings) should be stored in the backend and loaded in real time.
+- Live Dashboard:
+- The dashboard must dynamically update and display live transactional and financial data as set by the user.
+- It should reflect real-time changes such as new invoices, payments, and notifications.
+- Charts and status indicators should automatically refresh to show the latest information from the backend.
+- Wallet Balance Integration:
+- The wallet integration must show the actual wallet balance by directly fetching data using the Solana Wallet Adapter.
+- All financial details (e.g., wallet balance, transaction history) must update live based on the on-chain data of the connected wallet.
+- User Roles and Permissions:
+- The interface must spawn distinct UIs based on the real user role selected during onboarding, ensuring that Clients see features such as invoice creation and payment processing, while Freelancers see incoming invoices and payment statuses.
+- Role-specific live data should be visibly and continuously updated, reflecting any changes in user actions and on-chain events.
+- Integration & Data Cohesion:
+- Ensure that the entire app—front-end dashboard, backend APIs, and smart contract integrations—works seamlessly together to reflect real-time state.
+- Real user data and wallet balances should not be placeholders; instead, the dashboard fetches and shows verified, live blockchain and database data.
+This prompt ensures that the CryptoPay dashboard is not only aesthetically designed but also functionally robust, displaying real-time, user-specific data directly from the wallet and backend services.

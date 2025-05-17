@@ -1,0 +1,55 @@
+Submitting invoice: {invoiceNumber: 'INV-161', creatorId: 1, recipientName: 'Sr corp', recipientWalletAddress: 'HfHLytAJodeXmwP8qqkot3v9cYAqMx6KT6Xui4GemSki', amount: '0.998', …}amount: "0.998"convertOnPayment: falsecreatorId: 1creatorWalletAddress: "HfHLytAJodeXmwP8qqkot3v9cYAqMx6KT6Xui4GemSki"description: "invoices "dueDate: "2025-05-23T19:08:12.350Z"invoiceNumber: "INV-161"issueDate: "2025-05-16T19:08:32.172Z"recipientName: "Sr corp"recipientWalletAddress: "HfHLytAJodeXmwP8qqkot3v9cYAqMx6KT6Xui4GemSki"status: "draft"[[Prototype]]: Object
+injected.js:1 
+            
+            
+           POST https://a6719220-75ac-472e-a230-896fd18e08e3-00-2k4vcmsq5sf8s.janeway.replit.dev/api/invoices 400 (Bad Request)
+value @ injected.js:1
+apiRequest @ queryClient.ts:15
+mutationFn @ useInvoices.ts:26
+fn @ @tanstack_react-query.js?v=6b672320:1189
+run @ @tanstack_react-query.js?v=6b672320:494
+start @ @tanstack_react-query.js?v=6b672320:536
+execute @ @tanstack_react-query.js?v=6b672320:1225
+await in execute
+mutate @ @tanstack_react-query.js?v=6b672320:2630
+onSubmit @ InvoiceForm.tsx:101
+(anonymous) @ chunk-YGCRICWC.js?v=6b672320:1465
+await in (anonymous)
+callCallback2 @ chunk-276SZO74.js?v=6b672320:3674
+invokeGuardedCallbackDev @ chunk-276SZO74.js?v=6b672320:3699
+invokeGuardedCallback @ chunk-276SZO74.js?v=6b672320:3733
+invokeGuardedCallbackAndCatchFirstError @ chunk-276SZO74.js?v=6b672320:3736
+executeDispatch @ chunk-276SZO74.js?v=6b672320:7014
+processDispatchQueueItemsInOrder @ chunk-276SZO74.js?v=6b672320:7034
+processDispatchQueue @ chunk-276SZO74.js?v=6b672320:7043
+dispatchEventsForPlugins @ chunk-276SZO74.js?v=6b672320:7051
+(anonymous) @ chunk-276SZO74.js?v=6b672320:7174
+batchedUpdates$1 @ chunk-276SZO74.js?v=6b672320:18913
+batchedUpdates @ chunk-276SZO74.js?v=6b672320:3579
+dispatchEventForPluginEventSystem @ chunk-276SZO74.js?v=6b672320:7173
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ chunk-276SZO74.js?v=6b672320:5478
+dispatchEvent @ chunk-276SZO74.js?v=6b672320:5472
+dispatchDiscreteEvent @ chunk-276SZO74.js?v=6b672320:5449Understand this error
+InvoiceForm.tsx:111 Invoice creation error: Error: 400: {"message":"Invalid invoice data","errors":[{"code":"invalid_type","expected":"date","received":"string","path":["dueDate"],"message":"Expected date, received string"},{"code":"invalid_type","expected":"date","received":"string","path":["issueDate"],"message":"Expected date, received string"}]}
+    at throwIfResNotOk (queryClient.ts:6:11)
+    at async apiRequest (queryClient.ts:22:3)
+    at async Object.mutationFn (useInvoices.ts:26:24)
+onSubmit @ InvoiceForm.tsx:111
+await in onSubmit
+(anonymous) @ chunk-YGCRICWC.js?v=6b672320:1465
+await in (anonymous)
+callCallback2 @ chunk-276SZO74.js?v=6b672320:3674
+invokeGuardedCallbackDev @ chunk-276SZO74.js?v=6b672320:3699
+invokeGuardedCallback @ chunk-276SZO74.js?v=6b672320:3733
+invokeGuardedCallbackAndCatchFirstError @ chunk-276SZO74.js?v=6b672320:3736
+executeDispatch @ chunk-276SZO74.js?v=6b672320:7014
+processDispatchQueueItemsInOrder @ chunk-276SZO74.js?v=6b672320:7034
+processDispatchQueue @ chunk-276SZO74.js?v=6b672320:7043
+dispatchEventsForPlugins @ chunk-276SZO74.js?v=6b672320:7051
+(anonymous) @ chunk-276SZO74.js?v=6b672320:7174
+batchedUpdates$1 @ chunk-276SZO74.js?v=6b672320:18913
+batchedUpdates @ chunk-276SZO74.js?v=6b672320:3579
+dispatchEventForPluginEventSystem @ chunk-276SZO74.js?v=6b672320:7173
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ chunk-276SZO74.js?v=6b672320:5478
+dispatchEvent @ chunk-276SZO74.js?v=6b672320:5472
+dispatchDiscreteEvent @ chunk-276SZO74.js?v=6b672320:5449Understand this error

@@ -1,0 +1,23 @@
+Error setting role: 
+TypeError {}
+message: "Failed to execute 'fetch' on 'Window': '/api/users/role' is not a valid HTTP method."
+stack: "TypeError: Failed to execute 'fetch' on 'Window': '/api/users/role' is not a valid HTTP method.↵ at window.fetch (https://a6719220-75ac-472e-a230-896fd18e08e3-00-2k4vcmsq5sf8s.janeway.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:218642)↵ at apiRequest (https://a6719220-75ac-472e-a230-896fd18e08e3-00-2k4vcmsq5sf8s.janeway.replit.dev/src/lib/queryClient.ts:9:21)↵ at handleSubmit (https://a6719220-75ac-472e-a230-896fd18e08e3-00-2k4vcmsq5sf8s.janeway.replit.dev/src/components/onboarding/OnboardingModal.tsx:63:30)↵ at HTMLUnknownElement.callCallback2 (https://a6719220-75ac-472e-a230-896fd18e08e3-00-2k4vcmsq5sf8s.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-RPCDYKBN.js?v=66260a75:3674:22)↵ at Object.invokeGuardedCallbackDev (https://a6719220-75ac-472e-a230-896fd18e08e3-00-2k4vcmsq5sf8s.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-RPCDYKBN.js?v=66260a75:3699:24)↵ at invokeGuardedCallback (https://a6719220-75ac-472e-a230-896fd18e08e3-00-2k4vcmsq5sf8s.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-RPCDYKBN.js?v=66260a75:3733:39)↵ at invokeGuardedCallbackAndCatchFirstError (https://a6719220-75ac-472e-a230-896fd18e08e3-00-2k4vcmsq5sf8s.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-RPCDYKBN.js?v=66260a75:3736:33)↵ at executeDispatch (https://a6719220-75ac-472e-a230-896fd18e08e3-00-2k4vcmsq5sf8s.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-RPCDYKBN.js?v=66260a75:7014:11)↵ at processDispatchQueueItemsInOrder (https://a6719220-75ac-472e-a230-896fd18e08e3-00-2k4vcmsq5sf8s.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-RPCDYKBN.js?v=66260a75:7034:15)↵ at processDispatchQueue (https://a6719220-75ac-472e-a230-896fd18e08e3-00-2k4vcmsq5sf8s.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-RPCDYKBN.js?v=66260a75:7043:13)"
+get stack: ƒ ()
+set stack: ƒ ()
+[[Prototype]]: Object
+
+at t.value (https://a6719220-75ac-472e-a230-896fd18e08e3-00-2k4vcmsq5sf8s.janeway.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:17465)
+at new t (https://a6719220-75ac-472e-a230-896fd18e08e3-00-2k4vcmsq5sf8s.janeway.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:12630)
+at t.value (https://a6719220-75ac-472e-a230-896fd18e08e3-00-2k4vcmsq5sf8s.janeway.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:32766)
+at https://a6719220-75ac-472e-a230-896fd18e08e3-00-2k4vcmsq5sf8s.janeway.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:34400
+Failed to execute 'fetch' on 'Window': '/api/users/role' is not a valid HTTP method.
+at window.fetch (https://a6719220-75ac-472e-a230-896fd18e08e3-00-2k4vcmsq5sf8s.janeway.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:218642)
+at apiRequest (https://a6719220-75ac-472e-a230-896fd18e08e3-00-2k4vcmsq5sf8s.janeway.replit.dev/src/lib/queryClient.ts:9:21)
+at handleSubmit (https://a6719220-75ac-472e-a230-896fd18e08e3-00-2k4vcmsq5sf8s.janeway.replit.dev/src/components/onboarding/OnboardingModal.tsx:63:30)
+at HTMLUnknownElement.callCallback2 (https://a6719220-75ac-472e-a230-896fd18e08e3-00-2k4vcmsq5sf8s.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-RPCDYKBN.js?v=66260a75:3674:22)
+at Object.invokeGuardedCallbackDev (https://a6719220-75ac-472e-a230-896fd18e08e3-00-2k4vcmsq5sf8s.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-RPCDYKBN.js?v=66260a75:3699:24)
+at invokeGuardedCallback (https://a6719220-75ac-472e-a230-896fd18e08e3-00-2k4vcmsq5sf8s.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-RPCDYKBN.js?v=66260a75:3733:39)
+at invokeGuardedCallbackAndCatchFirstError (https://a6719220-75ac-472e-a230-896fd18e08e3-00-2k4vcmsq5sf8s.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-RPCDYKBN.js?v=66260a75:3736:33)
+at executeDispatch (https://a6719220-75ac-472e-a230-896fd18e08e3-00-2k4vcmsq5sf8s.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-RPCDYKBN.js?v=66260a75:7014:11)
+at processDispatchQueueItemsInOrder (https://a6719220-75ac-472e-a230-896fd18e08e3-00-2k4vcmsq5sf8s.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-RPCDYKBN.js?v=66260a75:7034:15)
+at processDispatchQueue (https://a6719220-75ac-472e-a230-896fd18e08e3-00-2k4vcmsq5sf8s.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-RPCDYKBN.js?v=66260a75:7043:13)
