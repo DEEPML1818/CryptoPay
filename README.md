@@ -1,5 +1,5 @@
-<p align="center"><img src="dapp-frontend/src/assets/fonts/ticketbase1.png" width="480"\></p>
-
+<p align="center"><img src="CryptoPayRoll/attached_assets/cryptopayroll.png" width="480"\></p>
+ 
 ## 🔥 CryptoPayRoll — Decentralized Payroll & Invoicing Platform on Solana
 
 **CryptoPayRoll** is a fully integrated, end-to-end decentralized payroll and invoicing platform built on the Solana blockchain. It empowers crypto-native freelancers, remote teams, and DAOs to manage payments, contracts, and invoicing with complete transparency, speed, and security.
